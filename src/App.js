@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import Title from "./Title";
-// import TestButton from "./TestButton";
 import "./App.css";
 
 function App() {
-  const apiUrl =
-    "http://newsapi.org/v2/top-headlines?country=us&apiKey=b8f99bccbe5b4cc5b9beee0556193eee";
   const [news, setNews] = useState(null);
+
+  //TODO: Add option to change country
+  //TODO: Export whole part with news to separate component
+  //TODO: Improve styling now is mech
+  //TODO: Add loading spinner
+  const apiUrl =
+    "https://newsapi.org/v2/top-headlines?country=us&apiKey=b8f99bccbe5b4cc5b9beee0556193eee";
+
   function fetchNews() {
     fetch(apiUrl)
       .then((resp) => resp.json())
@@ -20,16 +25,24 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Title title={"Latest news"} />
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <button onClick={fetchNews}>Fetch news</button>
       </header>
-      <div className="">
+      <div className="news-container">
         {news &&
-          news.map((singleNews, index) => (
-            <div className="" key={index}>
-              <div className="">{singleNews.title}</div>
-            </div>
-          ))}
+          news.articles.map((singleNews, index) => {
+            return (
+              <div className="single-news" key={index}>
+                <a
+                  href={singleNews.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {singleNews.title}
+                  <img src={singleNews.urlToImage} alt="" />
+                </a>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
