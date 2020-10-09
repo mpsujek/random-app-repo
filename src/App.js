@@ -9,8 +9,10 @@ function App() {
   //TODO: Export whole part with news to separate component
   //TODO: Improve styling now is mech
   //TODO: Add loading spinner
+  const API_KEY = process.env.REACT_APP_NEWS_API;
+
   const apiUrl =
-    "https://newsapi.org/v2/top-headlines?country=us&apiKey=b8f99bccbe5b4cc5b9beee0556193eee";
+    "https://newsapi.org/v2/top-headlines?country=us&apiKey=" + API_KEY;
 
   function fetchNews() {
     fetch(apiUrl)
@@ -18,6 +20,12 @@ function App() {
       .then((data) => {
         console.log(data);
         setNews(data);
+      })
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
       });
   }
 
