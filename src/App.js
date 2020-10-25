@@ -45,11 +45,11 @@ function App() {
         <Title title={"Latest news"} />
         <div className="country_buttons">
           <p>Choose news for country, default is US</p>
-          <button id="pl" onClick={changeCountry}>
-            pl
-          </button>
           <button id="us" onClick={changeCountry}>
             us
+          </button>
+          <button id="pl" onClick={changeCountry}>
+            pl
           </button>
         </div>
         <button onClick={fetchNews}>Fetch news</button>
