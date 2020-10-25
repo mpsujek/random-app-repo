@@ -5,20 +5,30 @@ import "./App.css";
 function App() {
   const [news, setNews] = useState(null);
 
-  //TODO: Add option to change country
   //TODO: Export whole part with news to separate component
   //TODO: Improve styling now is mech
   //TODO: Add loading spinner
+
   const API_KEY = process.env.REACT_APP_NEWS_API;
 
-  const apiUrl =
+  let apiUrl =
     "https://newsapi.org/v2/top-headlines?country=us&apiKey=" + API_KEY;
 
+  function changeCountry(event) {
+    const id = event.target.id;
+    apiUrl =
+      "https://newsapi.org/v2/top-headlines?country=" +
+      id +
+      "&apiKey=" +
+      API_KEY;
+    fetchNews();
+  }
+
   function fetchNews() {
+    console.log(apiUrl);
     fetch(apiUrl)
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
         setNews(data);
       })
       .catch((error) => {
@@ -33,8 +43,18 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Title title={"Latest news"} />
+        <div className="country_buttons">
+          <p>Choose news for country, default is US</p>
+          <button id="pl" onClick={changeCountry}>
+            pl
+          </button>
+          <button id="us" onClick={changeCountry}>
+            us
+          </button>
+        </div>
         <button onClick={fetchNews}>Fetch news</button>
       </header>
+
       <div className="news-container">
         {news &&
           news.articles.map((singleNews, index) => {
