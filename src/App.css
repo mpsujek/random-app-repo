@@ -52,9 +52,9 @@
 .news-container {
   padding-top: 20px;
   display: grid;
-  grid-template-columns: 25vw 25vw 25vw 25vw;
   grid-template-rows: 35vh 35vh 35vh 35vh 35vh;
   grid-gap: 40px 20px;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .single-news {
